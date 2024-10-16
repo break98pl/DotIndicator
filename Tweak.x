@@ -47,7 +47,8 @@
 -(CGRect)_frameForLabelAccessoryViewWithLabelFrame:(CGRect)arg1 labelImage:(id)arg2 labelImageParameters:(id)arg3 imageFrame:(CGRect)arg4{
 	CGRect orig = %orig();
   if(![self.location containsString:@"Dock"]){
-    orig.origin.x = -5;
+    orig.origin.x = 28;
+    orig.origin.y = orig.origin.y + 14;
   }
 	return orig;
 }
@@ -83,10 +84,4 @@
     }
 }
 
-%end
-
-%hook SBIcon
--(void)_notifyAccessoriesDidUpdate{
-  %orig;
-}
 %end

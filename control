@@ -6,4 +6,4 @@ Description: Show dot process from application
 Maintainer: Tờ Rung
 Author: Tờ Rung
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000)
+Depends: mobilesubstrate (>= 0.9.5000), com.crazymind90.killbundle

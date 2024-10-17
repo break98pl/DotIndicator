@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <spawn.h>
 #import "Header.h"
 
 %hook SBApplication
@@ -80,6 +81,9 @@
         SBIcon *icon = self.icon;
         SBMainSwitcherViewController *mainSwitcher = [%c(SBMainSwitcherViewController) sharedInstance];
         [mainSwitcher _deleteAppLayoutsMatchingBundleIdentifier:icon.applicationBundleID];
+        pid_t pid;
+        const char* args[] = {"KillBundle", [icon.applicationBundleID UTF8String], NULL};
+        posix_spawn(&pid, "/usr/bin/KillBundle", NULL, NULL, (char* const*)args, NULL);
       });
     }
 }

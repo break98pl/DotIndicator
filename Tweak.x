@@ -35,12 +35,16 @@
 	SBApplicationIcon *applicationIcon = [((SBIconController *)[objc_getClass("SBIconController") sharedInstance]).model applicationIconForBundleIdentifier: self.icon.applicationBundleID];
 	SBApplication *application = applicationIcon.application;
 	if(application.processState){
-		if(application.processState.visibility == 2){
-			return 1;
-		}
-		else if(application.processState.visibility == 1){
-			return 2;
-		}
+    SBMainSwitcherViewController *mainSwitcher = [%c(SBMainSwitcherViewController) sharedInstance];
+    NSArray *items = mainSwitcher.recentAppLayouts;
+    if([items containsObject:application.bundleIdentifier]){
+      if(application.processState.visibility == 2){
+        return 1;
+      }
+      else if(application.processState.visibility == 1){
+        return 2;
+      }
+    }
 	}
 	return 0;
 }
@@ -81,9 +85,6 @@
         SBIcon *icon = self.icon;
         SBMainSwitcherViewController *mainSwitcher = [%c(SBMainSwitcherViewController) sharedInstance];
         [mainSwitcher _deleteAppLayoutsMatchingBundleIdentifier:icon.applicationBundleID];
-        pid_t pid;
-        const char* args[] = {"KillBundle", [icon.applicationBundleID UTF8String], NULL};
-        posix_spawn(&pid, "/usr/bin/KillBundle", NULL, NULL, (char* const*)args, NULL);
       });
     }
 }

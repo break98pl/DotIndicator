@@ -37,12 +37,16 @@
 	if(application.processState){
     SBMainSwitcherViewController *mainSwitcher = [%c(SBMainSwitcherViewController) sharedInstance];
     NSArray *items = mainSwitcher.recentAppLayouts;
-    if([items containsObject:application.bundleIdentifier]){
-      if(application.processState.visibility == 2){
-        return 1;
-      }
-      else if(application.processState.visibility == 1){
-        return 2;
+    for(SBAppLayout *item in items) {
+      NSArray *arr = [item allItems];
+      SBDisplayItem *itemz = arr[0];
+      if([itemz.bundleIdentifier isEqual:application.bundleIdentifier]){
+        if(application.processState.visibility == 2){
+          return 1;
+        }
+        else if(application.processState.visibility == 1){
+          return 2;
+        }
       }
     }
 	}
@@ -53,7 +57,7 @@
 	CGRect orig = %orig();
   if(![self.location containsString:@"Dock"]){
     orig.origin.x = 28;
-    orig.origin.y = orig.origin.y + 14;
+    orig.origin.y = orig.origin.y + 2;
   }
 	return orig;
 }

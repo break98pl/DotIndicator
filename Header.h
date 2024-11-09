@@ -128,5 +128,10 @@
 @end
 
 @interface SBAppLayout : NSObject
--(NSDictionary *)rolesToLayoutItemsMap;
+@property (nonatomic,copy) NSDictionary * rolesToLayoutItemsMap;
+-(id)allItems;
+@end
+
+@interface SBDisplayItem: NSObject
+@property (nonatomic,copy,readonly) NSString * bundleIdentifier;
 @end
